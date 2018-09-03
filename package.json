@@ -1,28 +1,39 @@
 {
-  "name": "bilibili-get",
-  "version": "1.4.0",
-  "description": "Bilibili video downloader.",
-  "main": "./lib/index.js",
-  "scripts": {
-    "test": "eslint . && tap test.js"
+  "_from": "bilibili-get",
+  "_id": "bilibili-get@1.5.0",
+  "_inBundle": false,
+  "_integrity": "sha512-BQgaewB80pPtXV3dBw69OnXe2ZbNaJVuDrSiDu57l9t+/OpWrsp4pvSIugsOIBeBJYSDeSO0UNT0ep0ChudwDQ==",
+  "_location": "/bilibili-get",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "bilibili-get",
+    "name": "bilibili-get",
+    "escapedName": "bilibili-get",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/bilibili-get/-/bilibili-get-1.5.0.tgz",
+  "_shasum": "c6cde3b70ddd0805283239ed482426c528311daa",
+  "_spec": "bilibili-get",
+  "_where": "F:\\Program Files\\SVP 4\\mpv64-standalone\\tmp\\bilibili",
+  "author": {
+    "name": "kamikat",
+    "email": "kamikat@banana.moe"
   },
   "bin": {
     "bilibili-get": "./bin/bilibili-get"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/kamikat/bilibili-get.git"
-  },
-  "keywords": [
-    "bilibili",
-    "flv"
-  ],
-  "author": "kamikat <kamikat@banana.moe>",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kamikat/bilibili-get/issues"
   },
-  "homepage": "https://github.com/kamikat/bilibili-get#readme",
+  "bundleDependencies": false,
   "dependencies": {
     "bilibili-playurl": "^1.0.2",
     "chalk": "^2.3.1",
@@ -39,8 +50,26 @@
     "sprintf-js": "^1.1.1",
     "tmp-promise": "^1.0.4"
   },
+  "deprecated": false,
+  "description": "Bilibili video downloader.",
   "devDependencies": {
     "eslint": "^4.18.1",
     "tap": "^11.1.1"
-  }
+  },
+  "homepage": "https://github.com/kamikat/bilibili-get#readme",
+  "keywords": [
+    "bilibili",
+    "flv"
+  ],
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "name": "bilibili-get",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kamikat/bilibili-get.git"
+  },
+  "scripts": {
+    "test": "eslint . && tap test.js"
+  },
+  "version": "1.5.0"
 }

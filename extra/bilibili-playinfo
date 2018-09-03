@@ -1,0 +1,61 @@
+#!/usr/bin/env node
+
+var _ = require('lodash');
+var debug = require('debug').debug('bilibili:mpv');
+var process = require('process');
+var program = require('commander');
+var pkginfo = require('../package.json');
+var co = require('co');
+
+var { parseUrl, findBangumiInfo, findVideoInfo, fetchPlayInfo } = require('../lib/extractor');
+
+program
+  .usage('[options] <url>')
+  .description('MPV integration helper.')
+  .option('-q, --quality [value]', 'set video quality', '0')
+  .option('-C, --cookie [cookieString]', 'set cookie string')
+  .version(pkginfo.version)
+  .parse(process.argv);
+
+if (program.args.length !== 1) {
+  program.outputHelp();
+  process.exit(1);
+}
+
+var __main__ = function* (url, { quality, cookie }) {
+  var location = yield parseUrl(url);
+  var taskList = (function ({ info, parts, season_type }) {
+    return _.map(parts, v => ({ ...location, ...info, ...v, season_type }));
+  })(yield (location.type === 1 ? findVideoInfo : findBangumiInfo)({
+    ...location,
+    cookie
+  }));
+  var taskInfo;
+  if (taskList.length === 1) {
+    taskInfo = taskList[0];
+  } else if (location.episode_id) {
+    taskInfo = _.filter(taskList, v => v.episode_id == location.episode_id)[0];
+  } else if (location.part_id) {
+    taskInfo = _.filter(taskList, v => v.part_id == location.part_id)[0];
+  }
+  var json;
+  if (taskInfo) {
+    json = Object.assign(taskInfo, yield fetchPlayInfo({ ...taskInfo, quality, cookie }));
+  } else {
+    json = {
+      playlist: taskList
+    };
+  }
+  process.stdout.write(JSON.stringify(json));
+  process.stdout.write('\n');
+};
+
+co(__main__(program.args[0], program)).then(() => {
+  debug('process finished.');
+}).catch((err) => {
+  debug(err);
+  console.error(`ERROR: ${err.message}`);
+  process.exit(1);
+});
+
+
